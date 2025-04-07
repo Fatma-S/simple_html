@@ -35,3 +35,6 @@ INSERT INTO instructors (instructor_id, instructor_name) VALUES
 ('I12348', 'Dr. Martinez'),
 ('I12349', 'Dr. Lee'),
 ('I12350', 'Prof. Clark');
+
+select * from students;
+select * from instructors;
