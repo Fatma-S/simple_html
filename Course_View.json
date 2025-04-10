@@ -1,0 +1,52 @@
+{
+  "courses": [
+    {
+      "course_id": 1,
+      "course_title": "Introduction to Programming",
+      "course_number": "CS101",
+      "course_description": "Learn the basics of programming.",
+      "meeting_days": "Monday, Wednesday",
+      "semester": "Fall 2024",
+      "instructor": {
+        "instructor_id": 1,
+        "name": "Dr. John Doe",
+        "email": "johndoe@eusu.edu"
+      },
+      "meetings": [
+        {
+          "meeting_id": 1,
+          "meeting_date": "2024-09-01",
+          "qr_code": "abc123",
+          "link": "https://eusu.edu/attendance1"
+        },
+        {
+          "meeting_id": 2,
+          "meeting_date": "2024-09-08",
+          "qr_code": "def456",
+          "link": "https://eusu.edu/attendance2"
+        }
+      ]
+    }
+  ],
+  "students": [
+    {
+      "student_id": 1,
+      "name": "Alice Smith",
+      "email": "alice@eusu.edu",
+      "attendance": [
+        {
+          "attendance_id": 1,
+          "meeting_id": 1,
+          "status": "Present",
+          "seating_position": "Row 3, Seat 2"
+        },
+        {
+          "attendance_id": 2,
+          "meeting_id": 2,
+          "status": "Absent",
+          "seating_position": null
+        }
+      ]
+    }
+  ]
+}
