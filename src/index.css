@@ -1,0 +1,25 @@
+#top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: black;
+    padding: 10px;
+}
+
+.top-right{
+    padding-right: 20px;
+    color: white;
+}
+
+.log-out {
+    border: none;
+    background-color: black;
+    color: white;
+    margin-left: 10px;
+}
+
+#create-course {
+    margin-top: 100px;
+    margin-right: 200px;
+    float: right;
+}
