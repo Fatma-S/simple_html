@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Creation</title>
+</head>
+<body>
+    <h1>Course Creation</h1>
+
+    <!-- Course Form -->
+    <div>
+        <h2>Course Details</h2>
+        <form id="course-form">
+            <input type="text" id="title" placeholder="Course Title" required><br><br>
+            <input type="text" id="courseNumber" placeholder="Course Number" required><br><br>
+            <textarea id="description" placeholder="Course Description" required></textarea><br><br>
+            <input type="text" id="meetingRoom" placeholder="Meeting Room" required><br><br>
+            <button type="submit">Create Course</button>
+        </form>
+    </div>
+
+    <!-- CSV File Upload -->
+    <div>
+        <h2>Upload CSV Roster</h2>
+        <input type="file" id="csv-upload" accept=".csv">
+        <button id="upload-btn">Upload and Parse</button>
+    </div>
+
+    <!-- Dashboard (for displaying saved courses) -->
+    <div>
+        <h2>Dashboard</h2>
+        <ul id="course-dashboard"></ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
