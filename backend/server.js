@@ -1,50 +1,76 @@
-// server.js
-
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-// MySQL Database setup
+// Serve static files (e.g., index.html, CSS, JS) from the 'public' folder
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// MySQL Database connection setup
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'password',
+  user: 'root',               // MySQL username (typically root)
+  password: 'K0f!S@mmy1610',   // MySQL password (replace with your actual password)
   database: 'course_creation_db',
 });
 
+// Connect to the MySQL database
 db.connect((err) => {
-  if (err) throw err;
+  if (err) {
+    console.error('Error connecting to MySQL:', err.stack);
+    return;
+  }
   console.log('Connected to MySQL database');
 });
 
-// API to save course details
+// API route to create a new course
 app.post('/api/courses', (req, res) => {
   const { title, courseNumber, description, meetingRoom } = req.body;
+
+  // SQL query to insert a new course into the 'courses' table
   const query = 'INSERT INTO courses (title, courseNumber, description, meetingRoom) VALUES (?, ?, ?, ?)';
-  
+
   db.query(query, [title, courseNumber, description, meetingRoom], (err, result) => {
-    if (err) throw err;
-    res.status(200).json({ message: 'Course saved successfully', courseId: result.insertId });
+    if (err) {
+      console.error('Error inserting course:', err);
+      return res.status(500).json({ message: 'Error creating course' });
+    }
+    // Return success message and the inserted course ID
+    res.status(200).json({
+      message: 'Course created successfully',
+      courseId: result.insertId, // The ID of the newly created course
+    });
   });
 });
 
-// API to save course roster (CSV data)
+// API route to upload a course roster for a specific course
 app.post('/api/courses/:courseId/roster', (req, res) => {
-  const { courseId } = req.params;
-  const roster = req.body;
+  const { courseId } = req.params; // Get the courseId from the URL
+  const roster = req.body; // The roster data should be in the request body (parsed from CSV)
 
+  // Insert each student in the roster into the 'roster' table
   roster.forEach((student) => {
-    const query =
-      'INSERT INTO roster (courseId, firstName, lastName, email) VALUES (?, ?, ?, ?)';
-    db.query(query, [courseId, student.firstName, student.lastName, student.email], (err) => {
-      if (err) throw err;
+    const { firstName, lastName, email } = student;
+    const query = 'INSERT INTO roster (courseId, firstName, lastName, email) VALUES (?, ?, ?, ?)';
+
+    db.query(query, [courseId, firstName, lastName, email], (err) => {
+      if (err) {
+        console.error('Error inserting roster data:', err);
+        return res.status(500).json({ message: 'Error uploading roster' });
+      }
     });
   });
-  res.status(200).json({ message: 'Roster added successfully' });
+
+  res.status(200).json({ message: 'Roster uploaded successfully' });
+});
+
+// Root route to serve the HTML page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Start the server
