@@ -30,7 +30,7 @@ const ActiveCourses = () => {
   return (
     <div style={{ padding: '20px' }}>
         <a target='_blank'>
-        <button>
+        <button onClick={() => window.location.href = 'http://localhost:3001'}>
             Create New Course
         </button>
         </a>
