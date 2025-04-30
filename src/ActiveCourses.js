@@ -24,8 +24,13 @@ const ActiveCourses = () => {
         setCourses(mockCourses);
       }, []);
 
-    
-  const handleDelete = (id) => setCourses(courses.filter(c => c.id !== id));
+      
+  const handleDelete = (id) => {
+    const confirmed = window.confirm('Are you sure you want to delete this course?');
+    if (confirmed) {
+      setCourses(courses.filter(c => c.id !== id));
+    }
+  };
 
   return (
     <div style={{ padding: '20px' }}>
@@ -54,7 +59,7 @@ const ActiveCourses = () => {
               <td>{course.time}</td>
               <td>{course.classroom}</td>
               <td>
-                <button>View Attendance</button>
+                <button onClick={() => window.location.href = 'http://google.com'}>View Attendance</button>
                 <button onClick={() => handleDelete(course.id)} style={{ marginLeft: '10px', color: 'red' }}>
                   Delete
                 </button>
